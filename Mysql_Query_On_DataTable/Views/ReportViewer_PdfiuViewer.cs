@@ -10,21 +10,11 @@ using System.Windows.Forms;
 
 namespace Mysql_Query_On_DataTable.Views
 {
-	public partial class ReportViewer : Form
+	public partial class ReportViewer_PdfiuViewer : Form
 	{
-		public ReportViewer()
+		public ReportViewer_PdfiuViewer()
 		{
 			InitializeComponent();
-		}
-
-		private void guna2Button1_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void guna2Button2_Click(object sender, EventArgs e)
-		{
-
 		}
 	}
 }

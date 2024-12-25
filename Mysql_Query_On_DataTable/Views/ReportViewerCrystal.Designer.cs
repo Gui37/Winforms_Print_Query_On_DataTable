@@ -1,6 +1,6 @@
 ﻿namespace Mysql_Query_On_DataTable.Views
 {
-	partial class ReportViewer
+	partial class ReportViewerCrystal
 	{
 		/// <summary>
 		/// Required designer variable.

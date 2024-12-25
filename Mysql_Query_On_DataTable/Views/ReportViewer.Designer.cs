@@ -59,6 +59,7 @@
 			// 
 			// guna2Panel1
 			// 
+			this.guna2Panel1.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.guna2Panel1.Controls.Add(this.guna2Button3);
 			this.guna2Panel1.Controls.Add(this.guna2Button2);
 			this.guna2Panel1.Controls.Add(this.guna2Button1);
@@ -69,10 +70,16 @@
 			// 
 			// guna2Button3
 			// 
+			this.guna2Button3.Animated = true;
+			this.guna2Button3.AnimatedGIF = true;
+			this.guna2Button3.AutoRoundedCorners = true;
+			this.guna2Button3.BorderRadius = 15;
+			this.guna2Button3.CustomizableEdges.BottomLeft = false;
 			this.guna2Button3.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
 			this.guna2Button3.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
 			this.guna2Button3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
 			this.guna2Button3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+			this.guna2Button3.FillColor = System.Drawing.Color.Green;
 			this.guna2Button3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.guna2Button3.ForeColor = System.Drawing.Color.White;
 			this.guna2Button3.Location = new System.Drawing.Point(323, 3);
@@ -83,10 +90,16 @@
 			// 
 			// guna2Button2
 			// 
+			this.guna2Button2.Animated = true;
+			this.guna2Button2.AnimatedGIF = true;
+			this.guna2Button2.AutoRoundedCorners = true;
+			this.guna2Button2.BorderRadius = 15;
+			this.guna2Button2.CustomizableEdges.BottomLeft = false;
 			this.guna2Button2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
 			this.guna2Button2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
 			this.guna2Button2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
 			this.guna2Button2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+			this.guna2Button2.FillColor = System.Drawing.Color.Maroon;
 			this.guna2Button2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.guna2Button2.ForeColor = System.Drawing.Color.White;
 			this.guna2Button2.Location = new System.Drawing.Point(167, 3);
@@ -94,13 +107,20 @@
 			this.guna2Button2.Size = new System.Drawing.Size(140, 42);
 			this.guna2Button2.TabIndex = 1;
 			this.guna2Button2.Text = "Exportar Para PDF";
+			this.guna2Button2.Click += new System.EventHandler(this.guna2Button2_Click);
 			// 
 			// guna2Button1
 			// 
+			this.guna2Button1.Animated = true;
+			this.guna2Button1.AnimatedGIF = true;
+			this.guna2Button1.AutoRoundedCorners = true;
+			this.guna2Button1.BorderRadius = 15;
+			this.guna2Button1.CustomizableEdges.BottomLeft = false;
 			this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
 			this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
 			this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
 			this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+			this.guna2Button1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
 			this.guna2Button1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.guna2Button1.ForeColor = System.Drawing.Color.White;
 			this.guna2Button1.Location = new System.Drawing.Point(11, 3);
@@ -108,6 +128,7 @@
 			this.guna2Button1.Size = new System.Drawing.Size(140, 42);
 			this.guna2Button1.TabIndex = 0;
 			this.guna2Button1.Text = "Imprimir Documento";
+			this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
 			// 
 			// ReportViewer
 			// 
@@ -116,6 +137,7 @@
 			this.ClientSize = new System.Drawing.Size(800, 450);
 			this.Controls.Add(this.guna2Panel1);
 			this.Controls.Add(this.crystalReportViewer1);
+			this.MinimumSize = new System.Drawing.Size(816, 489);
 			this.Name = "ReportViewer";
 			this.Text = "Report Viewer";
 			this.guna2Panel1.ResumeLayout(false);

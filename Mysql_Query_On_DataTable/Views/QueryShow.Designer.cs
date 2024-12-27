@@ -39,6 +39,7 @@
 			this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
 			this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
 			this.messageDialog = new Guna.UI2.WinForms.Guna2MessageDialog();
+			this.guna2CircleProgressBar1 = new Guna.UI2.WinForms.Guna2CircleProgressBar();
 			((System.ComponentModel.ISupportInitialize)(this.dgvDados)).BeginInit();
 			this.guna2Panel1.SuspendLayout();
 			this.guna2Panel2.SuspendLayout();
@@ -59,7 +60,7 @@
 			this.btnProcessar.Location = new System.Drawing.Point(638, 121);
 			this.btnProcessar.Name = "btnProcessar";
 			this.btnProcessar.Size = new System.Drawing.Size(159, 45);
-			this.btnProcessar.TabIndex = 1;
+			this.btnProcessar.TabIndex = 2;
 			this.btnProcessar.Text = "Processar";
 			this.btnProcessar.Click += new System.EventHandler(this.btnProcessar_Click);
 			// 
@@ -70,7 +71,7 @@
 			this.dgvDados.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.dgvDados.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+			this.dgvDados.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
 			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
 			dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(169)))), ((int)(((byte)(243)))));
 			dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -94,7 +95,7 @@
 			this.dgvDados.Name = "dgvDados";
 			this.dgvDados.RowHeadersVisible = false;
 			this.dgvDados.Size = new System.Drawing.Size(794, 277);
-			this.dgvDados.TabIndex = 2;
+			this.dgvDados.TabIndex = 3;
 			this.dgvDados.Theme = Guna.UI2.WinForms.Enums.DataGridViewPresetThemes.LightBlue;
 			this.dgvDados.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(229)))), ((int)(((byte)(251)))));
 			this.dgvDados.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -104,7 +105,7 @@
 			this.dgvDados.ThemeStyle.BackColor = System.Drawing.Color.White;
 			this.dgvDados.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(230)))), ((int)(((byte)(251)))));
 			this.dgvDados.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(169)))), ((int)(((byte)(243)))));
-			this.dgvDados.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+			this.dgvDados.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
 			this.dgvDados.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.dgvDados.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
 			this.dgvDados.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
@@ -129,7 +130,7 @@
 			this.txt_query.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
 			this.txt_query.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
 			this.txt_query.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-			this.txt_query.Font = new System.Drawing.Font("Segoe UI", 9F);
+			this.txt_query.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txt_query.ForeColor = System.Drawing.Color.Black;
 			this.txt_query.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
 			this.txt_query.Location = new System.Drawing.Point(5, 29);
@@ -138,7 +139,7 @@
 			this.txt_query.PlaceholderText = "Escreva a Query neste Campo";
 			this.txt_query.SelectedText = "";
 			this.txt_query.Size = new System.Drawing.Size(792, 91);
-			this.txt_query.TabIndex = 3;
+			this.txt_query.TabIndex = 1;
 			// 
 			// guna2HtmlLabel1
 			// 
@@ -165,7 +166,7 @@
 			this.btnImprimir.Location = new System.Drawing.Point(638, 283);
 			this.btnImprimir.Name = "btnImprimir";
 			this.btnImprimir.Size = new System.Drawing.Size(159, 45);
-			this.btnImprimir.TabIndex = 5;
+			this.btnImprimir.TabIndex = 4;
 			this.btnImprimir.Text = "Imprimir";
 			this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
 			// 
@@ -186,13 +187,14 @@
 			this.guna2Panel2.AutoRoundedCorners = true;
 			this.guna2Panel2.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.guna2Panel2.BorderRadius = 164;
+			this.guna2Panel2.Controls.Add(this.guna2CircleProgressBar1);
 			this.guna2Panel2.Controls.Add(this.btnImprimir);
 			this.guna2Panel2.Controls.Add(this.dgvDados);
 			this.guna2Panel2.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.guna2Panel2.Location = new System.Drawing.Point(0, 169);
 			this.guna2Panel2.Name = "guna2Panel2";
 			this.guna2Panel2.Size = new System.Drawing.Size(800, 331);
-			this.guna2Panel2.TabIndex = 7;
+			this.guna2Panel2.TabIndex = 0;
 			// 
 			// messageDialog
 			// 
@@ -200,8 +202,31 @@
 			this.messageDialog.Caption = null;
 			this.messageDialog.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
 			this.messageDialog.Parent = null;
-			this.messageDialog.Style = Guna.UI2.WinForms.MessageDialogStyle.Default;
+			this.messageDialog.Style = Guna.UI2.WinForms.MessageDialogStyle.Dark;
 			this.messageDialog.Text = null;
+			// 
+			// guna2CircleProgressBar1
+			// 
+			this.guna2CircleProgressBar1.Animated = true;
+			this.guna2CircleProgressBar1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(213)))), ((int)(((byte)(218)))), ((int)(((byte)(223)))));
+			this.guna2CircleProgressBar1.Font = new System.Drawing.Font("Segoe UI", 12F);
+			this.guna2CircleProgressBar1.ForeColor = System.Drawing.Color.White;
+			this.guna2CircleProgressBar1.Location = new System.Drawing.Point(335, 6);
+			this.guna2CircleProgressBar1.Minimum = 0;
+			this.guna2CircleProgressBar1.Name = "guna2CircleProgressBar1";
+			this.guna2CircleProgressBar1.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+			this.guna2CircleProgressBar1.ProgressColor2 = System.Drawing.Color.Teal;
+			this.guna2CircleProgressBar1.ProgressEndCap = System.Drawing.Drawing2D.LineCap.Round;
+			this.guna2CircleProgressBar1.ProgressOffset = 1;
+			this.guna2CircleProgressBar1.ProgressStartCap = System.Drawing.Drawing2D.LineCap.Round;
+			this.guna2CircleProgressBar1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+			this.guna2CircleProgressBar1.ShowText = true;
+			this.guna2CircleProgressBar1.Size = new System.Drawing.Size(130, 130);
+			this.guna2CircleProgressBar1.TabIndex = 5;
+			this.guna2CircleProgressBar1.TabStop = false;
+			this.guna2CircleProgressBar1.Text = "guna2CircleProgressBar1";
+			this.guna2CircleProgressBar1.Value = 1;
+			this.guna2CircleProgressBar1.Visible = false;
 			// 
 			// QueryShow
 			// 
@@ -233,5 +258,6 @@
 		private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
 		private Guna.UI2.WinForms.Guna2Panel guna2Panel2;
 		private Guna.UI2.WinForms.Guna2MessageDialog messageDialog;
+		private Guna.UI2.WinForms.Guna2CircleProgressBar guna2CircleProgressBar1;
 	}
 }

@@ -24,7 +24,7 @@ namespace Mysql_Query_On_DataTable.Views
         }
         private void guna2Button1_Click(object sender, EventArgs e)
 		{
-
+			
 		}
 
 		private void guna2Button2_Click(object sender, EventArgs e)

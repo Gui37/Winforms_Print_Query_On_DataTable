@@ -41,11 +41,11 @@ namespace Mysql_Query_On_DataTable.Views
 		{
 			try
 			{
-				dgvDados.AutoGenerateColumns = true;
+	
 				string query = txt_query.Text;
 				if (!string.IsNullOrEmpty(query.Trim()))
 				{
-					dt= dbHelper.ExecuteQuery(query);
+					dt = dbHelper.ExecuteQuery(query);
 					if (dt.Rows.Count > 0)
 					{
 						dgvDados.DataSource = dt;
@@ -63,10 +63,9 @@ namespace Mysql_Query_On_DataTable.Views
 		{
 			string tempFilePath = Path.Combine(Path.GetTempPath(), $"Relatorio_{Guid.NewGuid()}.pdf");
 
+
+			CriarReportCystal(dt);
 			
-			CriarReport(dt, tempFilePath);
-			ReportViewer_iTextSharp reportViewer = new ReportViewer_iTextSharp(tempFilePath);
-			reportViewer.Show();
 		}
 
 		private void QueryShow_Load(object sender, EventArgs e)
@@ -81,7 +80,7 @@ namespace Mysql_Query_On_DataTable.Views
 
 		private void QueryShow_Shown(object sender, EventArgs e)
 		{
-			
+
 		}
 		public void CriarReport(DataTable dt, string filePath)
 		{
@@ -169,47 +168,69 @@ namespace Mysql_Query_On_DataTable.Views
 				}
 			}
 		}
-			//public void CriarReportCystal()
-			//{
+		public void CriarReportCystal(DataTable Dados)
+		{
 
-			//	// Create dynamic report
-			//	ReportDocument report = new ReportDocument();
+			try
+			{
+				// Create dynamic report
+				ReportDocument report = new ReportDocument();
+				report.Load(@"Reports\CrystalReport1.rpt");
+				short contadorReport = 1;
+				foreach (DataColumn item in Dados.Columns)
+				{
+					if (contadorReport > 6)
+					{
+					var columnReport = report.ReportDefinition.ReportObjects[$"txtColumn{contadorReport}"] as TextObject;
+					columnReport.Text = item.ColumnName + "";
+					contadorReport++;
+						break;
+					}
+				}
 
-			//	// Create report schema
-			//	Section detailSection = report.ReportDefinition.Sections["Detail"];
+				short i = 1;
+				if (Dados.Columns.Count > 6)
+				{
+					for (int x = Dados.Columns.Count - 1; x >= 5; x--) // Iterate in reverse to avoid index shifting
+					{
+						string columnName = Dados.Columns[x].ColumnName;
 
-			//	int xPosition = 0;
-			//	int yPosition = 0;
-			//	const int FIELD_WIDTH = 2000; // Measured in twips (1 twip = 1/1440 inch)
-			//	const int FIELD_HEIGHT = 400;
-			//	const int FIELD_SPACING = 200;
+						Dados.Columns.Remove(columnName); // Remove the column if it's not required
 
-			//	foreach (DataColumn col in dt.Columns)
-			//	{
-			//		// Create a TextObject dynamically
-			//		TextObject textObject = new TextObject
-			//		{
-			//			Name = $"txt{col.ColumnName}",
-			//			Text = col.ColumnName,
-			//			Top = yPosition,
-			//			Left = xPosition,
-			//			Width = FIELD_WIDTH,
-			//			Height = FIELD_HEIGHT
-			//		};
+					}
+				}
+				else if (Dados.Columns.Count < 6)
+				{
+					for (int x = Dados.Columns.Count - 1; x >= 0; x--) // Iterate in reverse to avoid index shifting
+					{
+						string columnName = Dados.Columns[x].ColumnName;
 
-			//		// Add the TextObject to the detail section
-			//		detailSection.ReportObjects.Add(textObject);
+						Dados.Columns.Add($"Col{12 * x}", typeof(string)); // Add the missing column as a string type
+						foreach (DataRow row in Dados.Rows)
+						{
+							row[$"Col{12 * x}"] = string.Empty; // Set default value for existing rows
+						}
+					}
+				}
+				foreach (DataColumn col in Dados.Columns)
+				{
+					Dados.Columns[col.ColumnName].ColumnName = $"Column{i}";
+					i++;
+				}
 
-			//		xPosition += FIELD_WIDTH + FIELD_SPACING;
-			//	}
+				report.SetDataSource(Dados);
 
-			//	report.SetDataSource(dt);
+				// Show report
+				ReportViewerCrystal reportForm = new ReportViewerCrystal(report);
 
-			//	// Show report
-			//	ReportViewerCrystal reportForm = new ReportViewerCrystal(report);
+				reportForm.ShowDialog();
+			}
+			catch (Exception ex)
+			{
 
-			//	reportForm.ShowDialog();
-			//}
+				messageDialog.Show("Erro ao Processar os dados.","Atenção");
+			}
 		}
+	}
 }
 

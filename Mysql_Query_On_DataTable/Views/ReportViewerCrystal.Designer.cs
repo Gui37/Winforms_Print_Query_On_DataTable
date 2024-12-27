@@ -39,11 +39,10 @@
 			// crystalReportViewer1
 			// 
 			this.crystalReportViewer1.ActiveViewIndex = -1;
-			this.crystalReportViewer1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.crystalReportViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.crystalReportViewer1.Cursor = System.Windows.Forms.Cursors.Default;
-			this.crystalReportViewer1.Location = new System.Drawing.Point(1, 63);
+			this.crystalReportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.crystalReportViewer1.Location = new System.Drawing.Point(0, 0);
 			this.crystalReportViewer1.Name = "crystalReportViewer1";
 			this.crystalReportViewer1.PrintMode = CrystalDecisions.Windows.Forms.PrintMode.PrintOutputController;
 			this.crystalReportViewer1.ShowCloseButton = false;
@@ -53,12 +52,14 @@
 			this.crystalReportViewer1.ShowParameterPanelButton = false;
 			this.crystalReportViewer1.ShowPrintButton = false;
 			this.crystalReportViewer1.ShowRefreshButton = false;
-			this.crystalReportViewer1.Size = new System.Drawing.Size(797, 386);
+			this.crystalReportViewer1.Size = new System.Drawing.Size(800, 450);
 			this.crystalReportViewer1.TabIndex = 0;
 			this.crystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
 			// 
 			// guna2Panel1
 			// 
+			this.guna2Panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.guna2Panel1.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.guna2Panel1.Controls.Add(this.guna2Button3);
 			this.guna2Panel1.Controls.Add(this.guna2Button2);
@@ -73,7 +74,7 @@
 			this.guna2Button3.Animated = true;
 			this.guna2Button3.AnimatedGIF = true;
 			this.guna2Button3.AutoRoundedCorners = true;
-			this.guna2Button3.BorderRadius = 15;
+			this.guna2Button3.BorderRadius = 20;
 			this.guna2Button3.CustomizableEdges.BottomLeft = false;
 			this.guna2Button3.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
 			this.guna2Button3.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
@@ -93,7 +94,7 @@
 			this.guna2Button2.Animated = true;
 			this.guna2Button2.AnimatedGIF = true;
 			this.guna2Button2.AutoRoundedCorners = true;
-			this.guna2Button2.BorderRadius = 15;
+			this.guna2Button2.BorderRadius = 20;
 			this.guna2Button2.CustomizableEdges.BottomLeft = false;
 			this.guna2Button2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
 			this.guna2Button2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
@@ -114,7 +115,7 @@
 			this.guna2Button1.Animated = true;
 			this.guna2Button1.AnimatedGIF = true;
 			this.guna2Button1.AutoRoundedCorners = true;
-			this.guna2Button1.BorderRadius = 15;
+			this.guna2Button1.BorderRadius = 20;
 			this.guna2Button1.CustomizableEdges.BottomLeft = false;
 			this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
 			this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
@@ -130,7 +131,7 @@
 			this.guna2Button1.Text = "Imprimir Documento";
 			this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
 			// 
-			// ReportViewer
+			// ReportViewerCrystal
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -138,7 +139,7 @@
 			this.Controls.Add(this.guna2Panel1);
 			this.Controls.Add(this.crystalReportViewer1);
 			this.MinimumSize = new System.Drawing.Size(816, 489);
-			this.Name = "ReportViewer";
+			this.Name = "ReportViewerCrystal";
 			this.Text = "Report Viewer";
 			this.guna2Panel1.ResumeLayout(false);
 			this.ResumeLayout(false);

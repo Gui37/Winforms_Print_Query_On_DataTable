@@ -1,22 +1,12 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
-using CrystalDecisions.CrystalReports.ViewerObjectModel;
-using CrystalDecisions.Shared;
-using iText.Kernel.Pdf;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Mysql_Query_On_DataTable.Helper;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Drawing.Printing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using Font = iTextSharp.text.Font;
 using Paragraph = iTextSharp.text.Paragraph;
 
@@ -33,39 +23,61 @@ namespace Mysql_Query_On_DataTable.Views
 				var db = new DbConnection();
 				db.Show();
 			}
+			txt_query.Focus();
 		}
 		DbHelper dbHelper = new DbHelper();
 		DataTable dt = new DataTable();
-
+		List<string> listaColunas = new List<string>();
 		private void btnProcessar_Click(object sender, EventArgs e)
 		{
 			try
 			{
-	
+
 				string query = txt_query.Text;
 				if (!string.IsNullOrEmpty(query.Trim()))
 				{
 					dt = dbHelper.ExecuteQuery(query);
 					if (dt.Rows.Count > 0)
 					{
+						dgvDados.AutoGenerateColumns = true;
 						dgvDados.DataSource = dt;
+						dgvDados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
+
 					}
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
 
-				messageDialog.Show("Um Erro ocorreu ao processar a query, verifique a mesma.", "Atenção");
+				messageDialog.Show("Um Erro ocorreu ao processar a query, verifique a mesma." + ex.ToString(), "Atenção");
 			}
 		}
 
 		private void btnImprimir_Click(object sender, EventArgs e)
 		{
-			string tempFilePath = Path.Combine(Path.GetTempPath(), $"Relatorio_{Guid.NewGuid()}.pdf");
+			string tempFilePath = Path.Combine(Path.GetTempPath(), $"Relatório_{Guid.NewGuid()}.pdf");
 
+			if (dt.Rows.Count > 0)
+			{
+				if (dt.Rows.Count > 6)
+				{
+					TableSelector fr = new TableSelector(dt);
+					fr.ShowDialog();
+					if (fr.DialogResult == DialogResult.OK)
+					{
+						listaColunas = fr.tabelas;
+						CriarReportCystal(dt);
 
-			CriarReportCystal(dt);
-			
+					}
+				}
+				else
+				{
+					CriarReportCystal(dt);
+
+				}
+
+			}
+
 		}
 
 		private void QueryShow_Load(object sender, EventArgs e)
@@ -173,52 +185,65 @@ namespace Mysql_Query_On_DataTable.Views
 
 			try
 			{
+				DataTable dataTable = new DataTable();
+				dataTable = Dados;
 				// Create dynamic report
 				ReportDocument report = new ReportDocument();
 				report.Load(@"Reports\CrystalReport1.rpt");
 				short contadorReport = 1;
-				foreach (DataColumn item in Dados.Columns)
+				foreach (DataColumn item in dataTable.Columns)
 				{
-					if (contadorReport > 6)
+					if (contadorReport <= 6)
 					{
-					var columnReport = report.ReportDefinition.ReportObjects[$"txtColumn{contadorReport}"] as TextObject;
-					columnReport.Text = item.ColumnName + "";
-					contadorReport++;
-						break;
+						var columnReport = report.ReportDefinition.ReportObjects[$"txtColumn{contadorReport}"] as TextObject;
+						columnReport.Text = item.ColumnName + "";
+						contadorReport++;
 					}
 				}
 
 				short i = 1;
-				if (Dados.Columns.Count > 6)
+				if (dataTable.Columns.Count > 6)
 				{
-					for (int x = Dados.Columns.Count - 1; x >= 5; x--) // Iterate in reverse to avoid index shifting
+					for (int x = 0; x < dataTable.Columns.Count; x++)
 					{
-						string columnName = Dados.Columns[x].ColumnName;
 
-						Dados.Columns.Remove(columnName); // Remove the column if it's not required
-
+						string columnName = dataTable.Columns[x].ColumnName;
+						if (listaColunas.Contains(columnName))
+						{
+							dataTable.Columns.Remove(columnName);
+						}
 					}
-				}
-				else if (Dados.Columns.Count < 6)
-				{
-					for (int x = Dados.Columns.Count - 1; x >= 0; x--) // Iterate in reverse to avoid index shifting
-					{
-						string columnName = Dados.Columns[x].ColumnName;
 
-						Dados.Columns.Add($"Col{12 * x}", typeof(string)); // Add the missing column as a string type
-						foreach (DataRow row in Dados.Rows)
+
+
+					//for (int x = dataTable.Columns.Count - 1; x >= 5; x--) // Iterate in reverse to avoid index shifting
+					//{
+					//	string columnName = dataTable.Columns[x].ColumnName;
+
+					//	dataTable.Columns.Remove(columnName); // Remove the column if it's not required
+
+					//}
+				}
+				else if (dataTable.Columns.Count < 6)
+				{
+					for (int x = dataTable.Columns.Count - 1; x >= 0; x--) // Iterate in reverse to avoid index shifting
+					{
+						string columnName = dataTable.Columns[x].ColumnName;
+
+						dataTable.Columns.Add($"Col{12 * x}", typeof(string)); // Add the missing column as a string type
+						foreach (DataRow row in dataTable.Rows)
 						{
 							row[$"Col{12 * x}"] = string.Empty; // Set default value for existing rows
 						}
 					}
 				}
-				foreach (DataColumn col in Dados.Columns)
+				foreach (DataColumn col in dataTable.Columns)
 				{
-					Dados.Columns[col.ColumnName].ColumnName = $"Column{i}";
+					dataTable.Columns[col.ColumnName].ColumnName = $"Column{i}";
 					i++;
 				}
 
-				report.SetDataSource(Dados);
+				report.SetDataSource(dataTable);
 
 				// Show report
 				ReportViewerCrystal reportForm = new ReportViewerCrystal(report);
@@ -228,7 +253,7 @@ namespace Mysql_Query_On_DataTable.Views
 			catch (Exception ex)
 			{
 
-				messageDialog.Show("Erro ao Processar os dados.","Atenção");
+				messageDialog.Show("Erro ao Processar os dados." + ex.ToString(), "Atenção");
 			}
 		}
 	}

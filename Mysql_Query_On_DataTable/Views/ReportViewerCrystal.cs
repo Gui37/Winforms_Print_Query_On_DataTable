@@ -65,5 +65,40 @@ namespace Mysql_Query_On_DataTable.Views
 				MessageBox.Show(ex.ToString(), "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
+
+		private void guna2Button3_Click(object sender, EventArgs e)
+		{
+			SaveFileDialog sfd = new SaveFileDialog();
+			try
+			{
+				sfd.FileName = "Impressão";
+				sfd.Filter = "Excel Files|*.xls";
+				sfd.FilterIndex = 0;
+
+				if (sfd.ShowDialog() == DialogResult.OK)
+				{
+
+					ExportOptions exportOpts = new ExportOptions();
+					DiskFileDestinationOptions diskOpts = new DiskFileDestinationOptions();
+					PdfFormatOptions pdfFormatOpts = new PdfFormatOptions();
+
+					exportOpts.ExportFormatType = ExportFormatType.Excel;
+					exportOpts.ExportFormatOptions = pdfFormatOpts;
+					exportOpts.ExportDestinationType = ExportDestinationType.DiskFile;
+
+					diskOpts.DiskFileName = sfd.FileName;
+					exportOpts.ExportDestinationOptions = diskOpts;
+
+					report.Export(exportOpts);
+
+					MessageBox.Show("Documento Exportado Com Sucesso", "Works..", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					System.Diagnostics.Process.Start(sfd.FileName);
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.ToString(), "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
 	}
 }

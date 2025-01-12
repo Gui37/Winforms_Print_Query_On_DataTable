@@ -59,20 +59,22 @@ namespace Mysql_Query_On_DataTable.Views
 
 			if (dt.Rows.Count > 0)
 			{
+				DataTable table = new DataTable();
+				table= dt.Copy();
 				if (dt.Rows.Count > 6)
 				{
-					TableSelector fr = new TableSelector(dt);
+					TableSelector fr = new TableSelector(table);
 					fr.ShowDialog();
 					if (fr.DialogResult == DialogResult.OK)
 					{
 						listaColunas = fr.tabelas;
-						CriarReportCystal(dt);
+						CriarReportCystal(table);
 
 					}
 				}
 				else
 				{
-					CriarReportCystal(dt);
+					CriarReportCystal(table);
 
 				}
 
@@ -180,37 +182,29 @@ namespace Mysql_Query_On_DataTable.Views
 				}
 			}
 		}
-		public void CriarReportCystal(DataTable Dados)
+		public void CriarReportCystal(DataTable dataTable)
 		{
 
 			try
 			{
-				DataTable dataTable = new DataTable();
-				dataTable = Dados;
+			
 				// Create dynamic report
 				ReportDocument report = new ReportDocument();
 				report.Load(@"Reports\CrystalReport1.rpt");
 				short contadorReport = 1;
-				foreach (DataColumn item in dataTable.Columns)
-				{
-					if (contadorReport <= 6)
-					{
-						var columnReport = report.ReportDefinition.ReportObjects[$"txtColumn{contadorReport}"] as TextObject;
-						columnReport.Text = item.ColumnName + "";
-						contadorReport++;
-					}
-				}
 
 				short i = 1;
 				if (dataTable.Columns.Count > 6)
 				{
-					for (int x = 0; x < dataTable.Columns.Count; x++)
+					int countCol = dataTable.Columns.Count;
+					for (int x = 0; x < countCol; x++)
 					{
 
 						string columnName = dataTable.Columns[x].ColumnName;
-						if (listaColunas.Contains(columnName))
+						if (!listaColunas.Contains(columnName))
 						{
 							dataTable.Columns.Remove(columnName);
+							countCol -= 1;
 						}
 					}
 
@@ -235,6 +229,15 @@ namespace Mysql_Query_On_DataTable.Views
 						{
 							row[$"Col{12 * x}"] = string.Empty; // Set default value for existing rows
 						}
+					}
+				}
+				foreach (DataColumn item in dataTable.Columns)
+				{
+					if (contadorReport <= 6)
+					{
+						var columnReport = report.ReportDefinition.ReportObjects[$"txtColumn{contadorReport}"] as TextObject;
+						columnReport.Text = item.ColumnName + "";
+						contadorReport++;
 					}
 				}
 				foreach (DataColumn col in dataTable.Columns)
